@@ -53,9 +53,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Reference Include="Assembly-CSharp" Publicize="true">
-            <HintPath>..\..\..\crossover bottles\Steam\drive_c\Program Files (x86)\Steam\steamapps\common\Mycopunk\Mycopunk_Data\Managed\Assembly-CSharp.dll</HintPath>
-        </Reference>
         <!--      <Reference Include="Assembly-CSharp" Publicize="true">-->
         <!--        <HintPath>Path/to/Assembly-CSharp.dll</HintPath>-->
         <!--      </Reference>-->
