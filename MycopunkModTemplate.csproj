@@ -4,7 +4,6 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <AssemblyName>MycopunkModTemplate</AssemblyName>
         <Product>My first plugin</Product>
-        <Version>1.0.0</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
         <RestoreAdditionalProjectSources>
@@ -13,7 +12,18 @@
             https://nuget.samboy.dev/v3/index.json
         </RestoreAdditionalProjectSources>
         <RootNamespace>MycopunkModTemplate</RootNamespace>
+
+        <!-- Git tags must strart with v -->
+        <MinVerTagPrefix>v</MinVerTagPrefix>
     </PropertyGroup>
+
+    <!-- Set BepInEx plugin version according to MinVer -->
+    <Target Name="SetModVersion" BeforeTargets="AddGeneratedFile" DependsOnTargets="MinVer">
+        <PropertyGroup>
+            <PlainVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch)</PlainVersion>
+            <BepInExPluginVersion>$(PlainVersion)</BepInExPluginVersion>
+        </PropertyGroup>
+    </Target>
 
     <ItemGroup>
         <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all"/>
@@ -24,13 +34,28 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+
+        <PackageReference Include="MinVer" Version="6.0.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
+
+    <!-- Only keep mod dll -->
+    <Target Name="ClearReferenceCopyLocalPaths" AfterTargets="ResolveAssemblyReferences">
+        <ItemGroup>
+            <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)"/>
+        </ItemGroup>
+    </Target>
 
     <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all"/>
     </ItemGroup>
 
     <ItemGroup>
+        <Reference Include="Assembly-CSharp" Publicize="true">
+            <HintPath>..\..\..\crossover bottles\Steam\drive_c\Program Files (x86)\Steam\steamapps\common\Mycopunk\Mycopunk_Data\Managed\Assembly-CSharp.dll</HintPath>
+        </Reference>
         <!--      <Reference Include="Assembly-CSharp" Publicize="true">-->
         <!--        <HintPath>Path/to/Assembly-CSharp.dll</HintPath>-->
         <!--      </Reference>-->
