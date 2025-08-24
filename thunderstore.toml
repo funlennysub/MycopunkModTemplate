@@ -2,7 +2,7 @@
 schemaVersion = "0.0.1"
 
 [package]
-namespace = "AuthorName"
+namespace = "TeamName"
 name = "PackageName"
 description = "Example mod description"
 websiteUrl = "https://github.com/funlennysub/MycopunkModTemplate"
@@ -17,7 +17,7 @@ readme = "README.md"
 outdir = "build"
 
 [[build.copy]]
-source = "bin/Release/netstandard2.1/MycopunkModTemplate.dll"
+source = "bin/Release/net48/MycopunkModTemplate.dll"
 target = "BepInEx/plugins/MycopunkModTemplate.dll"
 
 [[build.copy]]
